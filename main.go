@@ -23,6 +23,7 @@ func main(){
 	})
 
 	server.POST("/todos", controllers.CreateTodo)
+	server.GET("/todos", controllers.FindAllTodos)
 
 
 

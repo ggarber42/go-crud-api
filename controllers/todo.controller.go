@@ -20,7 +20,18 @@ func CreateTodo(context *gin.Context) {
 	}
 
 	todo := models.Todo{ Title: input.Title }
-	initializers.DB.Create(&todo)
+	context.JSON(http.StatusOK, gin.H{"data": todo})
+}
+
+func FindAllTodos(context *gin.Context) {
+	var todos []models.Todo
+	initializers.DB.Find(&todos)
+	context.JSON(http.StatusOK, gin.H{"data": todos})
+}
+
+type UpdateTodoInput struct {
+	Done bool `json:"done" binding:"required"`
+}
 
 	context.JSON(http.StatusOK, gin.H{"data": todo})
 }
