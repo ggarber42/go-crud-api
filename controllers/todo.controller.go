@@ -29,3 +29,14 @@ func FindAllTodos(context *gin.Context) {
 	initializers.DB.Find(&todos)
 	context.JSON(http.StatusOK, gin.H{"data": todos})
 }
+
+func FindTodoById(context *gin.Context) {
+	var todo models.Todo
+
+	if err := initializers.DB.Where("id = ?", context.Param("id")).First(&todo).Error; err != nil {
+		context.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"data": todo})
+}

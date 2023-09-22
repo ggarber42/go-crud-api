@@ -22,6 +22,7 @@ func main(){
 
 	server.POST("/todos", controllers.CreateTodo)
 	server.GET("/todos", controllers.FindAllTodos)
+	server.GET("/todos/:id", controllers.FindTodoById)
 
 
 	server.Run("localhost:5000");
