@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 
 	"github.com/ggarber42/go-crud-api/controllers"
@@ -26,7 +24,5 @@ func main(){
 	server.GET("/todos", controllers.FindAllTodos)
 
 
-
 	server.Run("localhost:5000");
-	fmt.Printf("go crud log")
 }
