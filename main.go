@@ -23,7 +23,7 @@ func main(){
 	server.POST("/todos", controllers.CreateTodo)
 	server.GET("/todos", controllers.FindAllTodos)
 	server.GET("/todos/:id", controllers.FindTodoById)
-	server.PATCH("/todos/:id", controllers.UpdateTodo)
+	server.PUT("/todos/:id", controllers.UpdateTodo)
 
 	server.Run("localhost:5000");
 }
