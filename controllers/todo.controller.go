@@ -62,7 +62,6 @@ func UpdateTodo(context *gin.Context) {
 
 	updatedTodo := models.Todo{Done: input.Done}
 
-	// initializers.DB.Model(&todo).Updates(&updatedTodo)
 	initializers.DB.Model(&todo).Update("Done", updatedTodo.Done)
 	context.JSON(http.StatusOK, gin.H{"data": todo})
 }
