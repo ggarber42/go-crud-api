@@ -65,3 +65,15 @@ func UpdateTodo(context *gin.Context) {
 	initializers.DB.Model(&todo).Update("Done", updatedTodo.Done)
 	context.JSON(http.StatusOK, gin.H{"data": todo})
 }
+
+func DeleteTodo(context *gin.Context) {
+	var todo models.Todo
+
+	if err := initializers.DB.Where("id = ?", context.Param("id")).First(&todo).Error; err != nil {
+		context.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	initializers.DB.Delete(&todo)
+	context.JSON(http.StatusNoContent, gin.H{"data": "todo deleted!"})
+}

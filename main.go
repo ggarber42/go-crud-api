@@ -24,6 +24,7 @@ func main(){
 	server.GET("/todos", controllers.FindAllTodos)
 	server.GET("/todos/:id", controllers.FindTodoById)
 	server.PUT("/todos/:id", controllers.UpdateTodo)
+	server.DELETE("/todos/:id", controllers.DeleteTodo)
 
 	server.Run("localhost:5000");
 }
