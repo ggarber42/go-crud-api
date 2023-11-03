@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/ggarber42/go-crud-api/controllers"
@@ -8,11 +10,12 @@ import (
 )
 
 func init(){
-	initializers.ConnectDB()
+	initializers.Run()
 }
 
 func main(){
 	server := gin.Default()
+	port := os.Getenv("PORT")
 
 	server.GET("/hello", func(c *gin.Context){
 		c.JSON(200, gin.H{
@@ -26,5 +29,5 @@ func main(){
 	server.PUT("/todos/:id", controllers.UpdateTodo)
 	server.DELETE("/todos/:id", controllers.DeleteTodo)
 
-	server.Run("localhost:5000");
+	server.Run(port)
 }

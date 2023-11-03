@@ -3,17 +3,19 @@ package initializers
 import (
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/ggarber42/go-crud-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"github.com/ggarber42/go-crud-api/models"
 )
 
 var DB *gorm.DB
 
 func connectDB() {
 	var err error
-	dsn := "host=db user=admin password=admin dbname=crud_db port=5432 sslmode=disable timezone=Asia/Shanghai"
+	connection := fmt.Sprintf("host=%s user=%s password=%s dbname=%s", os.Getenv("HOST"), os.Getenv("USER"), os.Getenv("PASSWORD"), os.Getenv("DB_NAME"))
+	dsn := connection + " " + "port=5432 sslmode=disable timezone=Asia/Shanghai"
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to the Database")
