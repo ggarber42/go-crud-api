@@ -1,13 +1,20 @@
 version: '3.1'
 
 services:
-
   db:
     image: postgres
     container_name: local_pgdb
     ports:
       - 5432:5432
-    restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+  go-app:
+    build: .
+    ports:
+      - 5000:5000
+    restart: always
+    environment:
+      - DUMP=dump_test
+    depends_on:
+      - db
