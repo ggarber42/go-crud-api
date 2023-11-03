@@ -46,7 +46,6 @@ type UpdatePostInput struct {
 	Done   bool `json:"done"`
 }
 
-
 func UpdateTodo(context *gin.Context) {
 	var todo models.Todo
 	var input UpdatePostInput
@@ -55,14 +54,12 @@ func UpdateTodo(context *gin.Context) {
 		context.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
-	if err := context.ShouldBindJSON(&todo); err != nil {
+	if err := context.ShouldBindJSON(&input); err != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	updatedTodo := models.Todo{Done: input.Done}
-
-	initializers.DB.Model(&todo).Update("Done", updatedTodo.Done)
+	initializers.DB.Model(&todo).Update("Done", input.Done)
 	context.JSON(http.StatusOK, gin.H{"data": todo})
 }
 
